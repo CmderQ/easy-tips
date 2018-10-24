@@ -1,4 +1,4 @@
-<h1 align="center">Easy Tips</h1>
+<h1 align="center">《温故知新PHP》1.0</h1>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-tips#目录">
@@ -22,6 +22,15 @@
 <a href="https://github.com/TIGERB/easy-tips/tree/master/network">
   <img src="https://img.shields.io/badge/network-doing-blue.svg" alt="network">
 </a>
+<a href="https://github.com/TIGERB/easy-tips/tree/master/docker">
+  <img src="https://img.shields.io/badge/docker-doing-blue.svg" alt="docker">
+</a>
+<a href="#backers" alt="sponsors on Open Collective">
+<img src="https://opencollective.com/easy-tips/backers/badge.svg" />
+</a> 
+<a href="#sponsors" alt="Sponsors on Open Collective">
+<img src="https://opencollective.com/easy-tips/sponsors/badge.svg" />
+</a> 
 </p>
 
 <p align="center"><a href="README-EN.md" >English Version</a></p>
@@ -32,7 +41,7 @@
 
 ## 前言
 
-为什么把php,mysql,redis放在前三位？因为php/mysql/redis基础是一个当代phper的根基。
+基础不牢，地动山摇，谨以此句提醒自己。
 
 ## 备注
 
@@ -46,7 +55,7 @@ fixing    | 查漏补缺修改中
 
 ## 目录
 
-- PHP(doing)
+- PHP基础学习(done)
 
   - 符合PSR的PHP编程规范(含个人建议)
 
@@ -73,6 +82,23 @@ fixing    | 查漏补缺修改中
 
   - [记一些坑](https://github.com/TIGERB/easy-tips/blob/master/pit.md#记一些坑)
 
+- PHP深入学习(doing)
+  - 理解yield
+  - php的协程
+  - 生命周期
+  - 垃圾回收
+  - 扩展开发
+
+- 网络编程(doing)
+    - php实现web服务器
+    - go实现web服务器
+    - [c实现web服务器](https://github.com/taweisuode/webserver)
+    - php扩展实现web服务器
+
+- 问题排查(doing)
+  - nginx/php/业务日志
+  - 问题排查实例分析
+  
 - Mysql(doing)
 
   - [常用sql语句](https://github.com/TIGERB/easy-tips/blob/master/mysql/sql.md)
@@ -119,12 +145,27 @@ fixing    | 查漏补缺修改中
 
   - 常用命令
   - 实现原理&与memcache区别
-  - 常见使用场景实战
+  - 常见使用场景实现
     - [缓存](https://github.com/TIGERB/easy-tips/blob/master/redis/cache.php)
     - [队列](https://github.com/TIGERB/easy-tips/blob/master/redis/queue.php)
     - [悲观锁](https://github.com/TIGERB/easy-tips/blob/master/redis/pessmistic-lock.php)
     - [乐观锁](https://github.com/TIGERB/easy-tips/blob/master/redis/optimistic-lock.php)
     - [订阅/推送](https://github.com/TIGERB/easy-tips/blob/master/redis/subscribe-publish)
+  - 常见业务实际使用
+  - redis的基础数据结构
+
+- Docker
+  - [redis主从搭建](https://github.com/TIGERB/easy-tips/blob/master/docker/redis-master-slave/README.md)
+  - [mysql主从搭建](https://github.com/TIGERB/easy-tips/blob/master/docker/mysql-master-slave/README.md)
+  - [codis环境](https://github.com/TIGERB/easy-tips/blob/master/docker/codis/README.md)
+  - mysql多主环境
+  - kafka的环境搭建和使用
+  - rabbitMQ的环境搭建和使用
+  - zookeeper的环境搭建和使用
+  - etcd的环境搭建和使用
+  - ELK的环境搭建和使用
+  - 网关服务kong的环境搭建和使用
+  - 我所理想的架构
 
 - 设计模式(done/fixing)
 
@@ -306,23 +347,32 @@ count值为：1
 
 <img src="money-qrcode.jpg" width="300px">
 
-## 感谢
+## Contributors
 
-感谢以下朋友的issue或pull request：
+This project exists thanks to all the people who contribute. 
+<a href="graphs/contributors"><img src="https://opencollective.com/easy-tips/contributors.svg?width=890&button=false" /></a>
 
-- @[faynwol](https://github.com/faynwol)
-- @[whahuzhihao](https://github.com/whahuzhihao)
-- @[snriud](https://github.com/snriud)
-- @[fhefh2015](https://github.com/fhefh2015)
-- @[RJustice](https://github.com/RJustice)
-- @[ooing](https://github.com/ooing)
-- @[shellus](https://github.com/shellus)
-- @[entimm](https://github.com/entimm)
-- @[jealone](https://github.com/jealone)
-- @[cugblbs](https://github.com/cugblbs)
-- @[CmderQ](https://github.com/CmderQ)
-- @[neetdai](https://github.com/neetdai)
-- @[yangqiphp](https://github.com/yangqiphp)
-- @[akmumu](https://github.com/akmumu)
-- @[DukeAnn](https://github.com/DukeAnn)
-- @[onlyshow](https://github.com/onlyshow)
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/easy-tips#backer)]
+
+<a href="https://opencollective.com/easy-tips#backers" target="_blank"><img src="https://opencollective.com/easy-tips/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/easy-tips#sponsor)]
+
+<a href="https://opencollective.com/easy-tips/sponsor/0/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/1/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/2/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/3/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/4/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/5/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/6/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/7/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/8/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/easy-tips/sponsor/9/website" target="_blank"><img src="https://opencollective.com/easy-tips/sponsor/9/avatar.svg"></a>
+
+
