@@ -1,62 +1,116 @@
 package main
 
-// 导入net/http包
 import (
 	"fmt"
-	"time"
-
-	"github.com/gomodule/redigo/redis"
 )
 
-var RedisPool *redis.Pool
+// Context Context
+type Context struct {
+}
 
-func init() {
-	RedisPool = NewRedisPool()
-	fmt.Println("RedisPool.Stats: ", RedisPool.Stats())
+// Handler Handler
+type Handler interface {
+	Do(c *Context) error
+	SetNext(h Handler) Handler
+	Run(c *Context)
+}
+
+// Next Next
+type Next struct {
+	nextHandler Handler
+}
+
+// SetNext SetNext
+func (n *Next) SetNext(h Handler) Handler {
+	n.nextHandler = h
+	return h
+}
+
+// Run Run
+func (n *Next) Run(c *Context) {
+	if n.nextHandler != nil {
+		(n.nextHandler).Do(c)
+		(n.nextHandler).Run(c)
+	}
+}
+
+// NullHandler NullHandler·
+type NullHandler struct {
+	Next
+}
+
+// Do Do
+func (h *NullHandler) Do(c *Context) error {
+	// do nothing...
+	return nil
+}
+
+// SignHandler SignHandler
+type SignHandler struct {
+	Next
+}
+
+// Do Do
+func (h *SignHandler) Do(c *Context) error {
+	fmt.Println("SignHandler")
+	return nil
+}
+
+// ArgumentsHandler ArgumentsHandler
+type ArgumentsHandler struct {
+	Next
+}
+
+// Do Do
+func (h *ArgumentsHandler) Do(c *Context) error {
+	fmt.Println("ArgumentsHandler")
+	return nil
+}
+
+// FrequentHandler FrequentHandler
+type FrequentHandler struct {
+	Next
+}
+
+// Do Do
+func (h *FrequentHandler) Do(c *Context) error {
+	fmt.Println("FrequentHandler")
+	return nil
+}
+
+// LogHandler LogHandler
+type LogHandler struct {
+	Next
+}
+
+// Do Do
+func (h *LogHandler) Do(c *Context) error {
+	fmt.Println("LogHandler")
+	return nil
 }
 
 func main() {
-	// ------------------ defer 使用 ------------------
-	for {
-		(func() {
-			redisConn := RedisPool.Get()
-			defer redisConn.Close()
-		})()
-		defer DeferDemo()
+	nullHandler := &NullHandler{}
+	argumentsHandler := &ArgumentsHandler{}
+	signHandler := &SignHandler{}
+	frequentHandler := &FrequentHandler{}
 
-		// 一堆业务逻辑
-		_, err := redisConn.Do("set", "demo_key", "666")
-		if err != nil {
-			fmt.Println("redis set err: ", err.Error())
+	nullHandler.SetNext(argumentsHandler).SetNext(signHandler).SetNext(frequentHandler)
+	nullHandler.Run(&Context{})
+
+	fmt.Println("----------------------")
+
+	middlewares := make([]Handler, 0)
+	middlewares = append(middlewares, nullHandler)
+	middlewares = append(middlewares, argumentsHandler)
+	middlewares = append(middlewares, signHandler)
+	middlewares = append(middlewares, frequentHandler)
+
+	for k, handler := range middlewares {
+		if k == 0 {
 			continue
 		}
-		res, _ := redis.String(redisConn.Do("get", "demo_key"))
-		fmt.Println("get demo_key: ", res, " redis conn active", RedisPool.ActiveCount())
-		time.Sleep(1 * time.Second)
+		middlewares[k-1].SetNext(handler)
 	}
-}
-
-func NewRedisPool() *redis.Pool {
-	return &redis.Pool{
-		MaxIdle:     6,
-		IdleTimeout: 240 * time.Second,
-		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial("tcp", "127.0.0.1:6379")
-			if err != nil {
-				return nil, err
-			}
-			return c, nil
-		},
-		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			if time.Since(t) < time.Minute {
-				return nil
-			}
-			_, err := c.Do("PING")
-			return err
-		},
-	}
-}
-
-func DeferDemo() {
-	fmt.Println("DeferDemo...")
+	nullHandler.Run(&Context{})
 }
