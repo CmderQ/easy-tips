@@ -1,4 +1,4 @@
-package main
+package algorithm
 
 import (
 	"fmt"
@@ -153,28 +153,29 @@ func levelorder(r *Tree) {
 	}
 }
 
-func main() {
-	fmt.Println("前序遍历开始...")
-	preorder(root)
-	fmt.Println("")
+// func main() {
+// 	fmt.Println("前序遍历开始...")
+// 	preorder(root)
+// 	fmt.Println("")
 
-	fmt.Println("中序遍历开始...")
-	inorder(root)
-	fmt.Println("")
+// 	fmt.Println("中序遍历开始...")
+// 	inorder(root)
+// 	fmt.Println("")
 
-	fmt.Println("后序遍历开始...")
-	postorder(root)
-	fmt.Println("")
+// 	fmt.Println("后序遍历开始...")
+// 	postorder(root)
+// 	fmt.Println("")
 
-	fmt.Println("层序遍历开始...")
-	levelorder(root)
-	fmt.Println("")
-}
+// 	fmt.Println("层序遍历开始...")
+// 	levelorder(root)
+// 	fmt.Println("")
+// }
 
 // ================
 // 平衡二叉树
 // ================
 
+// TreeNode TreeNode
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -190,21 +191,44 @@ type TreeNode struct {
  * }
  */
 func isBalanced(root *TreeNode) bool {
-
-	return false
-}
-
-func recursionTree(node *TreeNode, high int) int, bool{
-	if node == nil {
-		return high, true
+	stack := []*TreeNode{}
+	pushStack := func(stack []*TreeNode, val *TreeNode) []*TreeNode {
+		return append(stack, val)
+	}
+	popStack := func(stack []*TreeNode) ([]*TreeNode, *TreeNode) {
+		lenStack := len(stack)
+		if lenStack == 0 {
+			return []*TreeNode{}, nil
+		}
+		val := stack[lenStack-1]
+		return append(stack[:0], stack[:lenStack-1]...), val
 	}
 
-	highLeft := recursionTree(node.Left, high)
-	highRight := recursionTree(node.Right, high)
-
-	if math.Abs(highLeft-highRight) > 1 {
-		return high, false
+	// push根节点
+	stack = pushStack(stack, root)
+	node := &TreeNode{}
+	// 右节点深度
+	i := 0
+	// 左节点深度
+	j := 0
+	for len(stack) > 0 {
+		// 弹出
+		stack, node = popStack(stack)
+		fmt.Println(node.Val)
+		if node.Right != nil {
+			// 压栈
+			i++
+			stack = pushStack(stack, node.Right)
+		}
+		if node.Left != nil {
+			// 压栈
+			j++
+			stack = pushStack(stack, node.Left)
+		}
+		if math.Abs(float64(i-j)) > 1 {
+			return false
+		}
 	}
 
-	return high, true
+	return true
 }
